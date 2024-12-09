@@ -8,7 +8,7 @@ pub fn build(b: *std.Build) void {
     //     .root_source_file = b.path("src/root.zig")
     // });
 
-    const lime = b.createModule("lime", .{
+    const lime = b.createModule(.{
         .root_source_file = b.path("src/root.zig")
     });
 
