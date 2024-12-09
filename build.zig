@@ -5,10 +5,10 @@ const builtin = @import("builtin");
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{
-        .preferred_optimize_mode = .Debug
+        .preferred_optimize_mode = .ReleaseFast
     });
 
-    // Exposing as a dependency for other packages
+    // Exposing as a dependency for other projects
     const package = b.addModule("lime", .{
         .root_source_file = b.path("src/root.zig"),
         .target = target,
@@ -16,10 +16,8 @@ pub fn build(b: *std.Build) void {
     });
 
     package.addIncludePath(b.path("libs/include"));
-    package.addObjectFile(b.path("libs/macOS/libz.a"));
-    package.addObjectFile(b.path("libs/macOS/libspng.a"));
 
-
+    // Making executable for this project
     const exe = b.addExecutable(.{
         .name = "lime",
         .root_source_file = b.path("src/main.zig"),
@@ -27,13 +25,17 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
     });
 
-    exe.addIncludePath(b.path("./libs/include"));
+    exe.addIncludePath(b.path("libs/include"));
 
+    // Adding platform dependent files
     switch (builtin.os.tag) {
         .windows => {
             // TODO
         },
         .macos => {
+            package.addObjectFile(b.path("libs/macOS/libz.a"));
+            package.addObjectFile(b.path("libs/macOS/libspng.a"));
+
             exe.addObjectFile(b.path("libs/macOS/libz.a"));
             exe.addObjectFile(b.path("libs/macOS/libspng.a"));
         },
