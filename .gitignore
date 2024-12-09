@@ -1,3 +1,4 @@
 site/
 zig-out/
 .zig-cache/
+.DS_Store
