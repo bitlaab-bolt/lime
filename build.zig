@@ -4,11 +4,7 @@ const builtin = @import("builtin");
 
 pub fn build(b: *std.Build) void {
     // Exposing as a dependency for other packages
-    // _ = b.addModule("lime", .{
-    //     .root_source_file = b.path("src/root.zig")
-    // });
-
-    const lime = b.createModule(.{
+    const lime = b.addModule("lime", .{
         .root_source_file = b.path("src/root.zig")
     });
 
