@@ -1,0 +1,14 @@
+.{
+    .name = "lime",
+    .version = "0.1.0",
+    .dependencies = .{},
+    .paths = .{
+        "lib",
+        "src",
+        "build.zig",
+        "build.zig.zon",
+        "CHANGELOG.md",
+        "LICENSE",
+        "README.md",
+    },
+}
