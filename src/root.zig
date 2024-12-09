@@ -1,4 +1,4 @@
-//! # High Level Abstraction for Underlying Libraries
+//! # Image Processing Library
 
 
 pub const Png = @import("./core/png.zig");
