@@ -3,19 +3,22 @@ const builtin = @import("builtin");
 
 
 pub fn build(b: *std.Build) void {
-    // Exposing as a dependency for other packages
-    const lime = b.addModule("lime", .{
-        .root_source_file = b.path("src/root.zig")
-    });
-
-    lime.addIncludePath(b.path("./libs/include"));
-    lime.addObjectFile(b.path("libs/macOS/libz.a"));
-    lime.addObjectFile(b.path("libs/macOS/libspng.a"));
-
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{
         .preferred_optimize_mode = .Debug
     });
+
+    // Exposing as a dependency for other packages
+    const package = b.addModule("lime", .{
+        .root_source_file = b.path("src/root.zig"),
+        .target = target,
+        .optimize = optimize
+    });
+
+    package.addIncludePath(b.path("libs/include"));
+    package.addObjectFile(b.path("libs/macOS/libz.a"));
+    package.addObjectFile(b.path("libs/macOS/libspng.a"));
+
 
     const exe = b.addExecutable(.{
         .name = "lime",
