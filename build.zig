@@ -5,7 +5,7 @@ const builtin = @import("builtin");
 pub fn build(b: *std.Build) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{
-        .preferred_optimize_mode = .ReleaseFast
+        .preferred_optimize_mode = .ReleaseSafe
     });
 
     // Exposing as a dependency for other projects
@@ -27,7 +27,7 @@ pub fn build(b: *std.Build) void {
 
     exe.addIncludePath(b.path("libs/include"));
 
-    // Adding platform dependent files
+    // Adding cross-platform dependency
     switch (builtin.os.tag) {
         .windows => {
             // TODO

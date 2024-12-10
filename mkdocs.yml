@@ -1,11 +1,26 @@
 site_name: lime v0.1.0
-site_url: https://mydomain.org/mysite
+site_url: https://mydomain.org/lime
+nav:
+  - Getting Started: index.md
+  - How to Install: installation.md
+  - How to Use: usage.md
+  - API Reference: reference.md
+  - Developer Guide: guide.md
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
 theme:
-  logo: assets/logo.png
-  favicon: assets/favicon.png
+  logo: assets/bitlaab/logo.png
+  favicon: assets/bitlaab/favicon.png
   homepage: https://bitlaab.com
   name: material
   features:
+    - content.code.copy
     - navigation.instant
     - navigation.instant.progress
   palette:
@@ -15,7 +30,6 @@ theme:
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
-
     # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate

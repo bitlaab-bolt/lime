@@ -7,7 +7,7 @@ const spng = @import("../binding/spng.zig");
 
 const Error = error { FileNotFound };
 
-const Output = union {
+const Output = union(enum) {
     err: []const u8,
     data: []const u8,
     ihdr: spng.ImageHeader
