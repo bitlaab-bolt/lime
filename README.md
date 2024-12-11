@@ -10,7 +10,7 @@ As of now, Lime supports **Windows and MacOS** (Apple silicon). Please create an
 
 ## Dependency
 
-All of Lime's dependencies are wrapped as static libraries. No additional steps are required!
+All of Lime's dependencies are linked as static libraries. No additional steps are required!
 
 ## Documentation
 

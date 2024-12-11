@@ -33,11 +33,17 @@ pub fn build(b: *std.Build) void {
             // TODO
             switch (builtin.cpu.arch) {
                 .x86_64 => {
-                    pkg.addObjectFile(b.path("libs/windows/libz-v1.3.1.a"));
-                    pkg.addObjectFile(b.path("libs/windows/libspng-v0.7.4.a"));
+                    pkg.addObjectFile(
+                        b.path("libs/windows/libz-v1.3.1.lib")
+                    );
+                    pkg.addObjectFile(
+                        b.path("libs/windows/libspng-v0.7.4.lib")
+                    );
 
-                    exe.addObjectFile(b.path("libs/windows/libz-v1.3.1.a"));
-                    exe.addObjectFile(b.path("libs/windows/libspng-v0.7.4.a"));
+                    exe.addObjectFile(b.path("libs/windows/libz-v1.3.1.lib"));
+                    exe.addObjectFile(
+                        b.path("libs/windows/libspng-v0.7.4.lib")
+                    );
                 },
                 else => @panic("Unsupported architecture!")
             }
