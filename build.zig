@@ -40,7 +40,9 @@ pub fn build(b: *std.Build) void {
                         b.path("libs/windows/libspng-v0.7.4.lib")
                     );
 
-                    exe.addObjectFile(b.path("libs/windows/libz-v1.3.1.lib"));
+                    exe.addObjectFile(
+                        b.path("libs/windows/libz-v1.3.1.lib")
+                    );
                     exe.addObjectFile(
                         b.path("libs/windows/libspng-v0.7.4.lib")
                     );
