@@ -9,7 +9,7 @@ pub fn main() !void {
     const heap = gpa_mem.allocator();
 
     // Loads RAW pixels
-    const image = try png.loadImage(heap, "./tests/gbitlaab.png");
+    const image = try png.loadImage(heap, "./tests/bitlaab.png");
     defer png.freeImage(heap, image.data);
 
     switch(image) {

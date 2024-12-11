@@ -9,13 +9,13 @@ pub fn build(b: *std.Build) void {
     });
 
     // Exposing as a dependency for other projects
-    const package = b.addModule("lime", .{
+    const pkg = b.addModule("lime", .{
         .root_source_file = b.path("src/root.zig"),
         .target = target,
         .optimize = optimize
     });
 
-    package.addIncludePath(b.path("libs/include"));
+    pkg.addIncludePath(b.path("libs/include"));
 
     // Making executable for this project
     const exe = b.addExecutable(.{
@@ -31,13 +31,28 @@ pub fn build(b: *std.Build) void {
     switch (builtin.os.tag) {
         .windows => {
             // TODO
+            switch (builtin.cpu.arch) {
+                .x86_64 => {
+                    pkg.addObjectFile(b.path("libs/windows/libz-v1.3.1.a"));
+                    pkg.addObjectFile(b.path("libs/windows/libspng-v0.7.4.a"));
+
+                    exe.addObjectFile(b.path("libs/windows/libz-v1.3.1.a"));
+                    exe.addObjectFile(b.path("libs/windows/libspng-v0.7.4.a"));
+                },
+                else => @panic("Unsupported architecture!")
+            }
         },
         .macos => {
-            package.addObjectFile(b.path("libs/macOS/libz.a"));
-            package.addObjectFile(b.path("libs/macOS/libspng.a"));
+            switch (builtin.cpu.arch) {
+                .aarch64 => {
+                    pkg.addObjectFile(b.path("libs/macOS/libz-v1.3.1.a"));
+                    pkg.addObjectFile(b.path("libs/macOS/libspng-v0.7.4.a"));
 
-            exe.addObjectFile(b.path("libs/macOS/libz.a"));
-            exe.addObjectFile(b.path("libs/macOS/libspng.a"));
+                    exe.addObjectFile(b.path("libs/macOS/libz-v1.3.1.a"));
+                    exe.addObjectFile(b.path("libs/macOS/libspng-v0.7.4.a"));
+                },
+                else => @panic("Unsupported architecture!")
+            }
         },
         else => @panic("Codebase is not tailored for this platform!")
     }
