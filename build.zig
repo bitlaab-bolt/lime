@@ -28,36 +28,29 @@ pub fn build(b: *std.Build) void {
     exe.addIncludePath(b.path("libs/include"));
 
     // Adding cross-platform dependency
-    switch (builtin.os.tag) {
+    switch (target.query.os_tag orelse builtin.os.tag) {
         .windows => {
-            // TODO
-            switch (builtin.cpu.arch) {
-                .x86_64 => {
-                    pkg.addObjectFile(
-                        b.path("libs/windows/libz-v1.3.1.lib")
-                    );
-                    pkg.addObjectFile(
-                        b.path("libs/windows/libspng-v0.7.4.lib")
-                    );
+            exe.linkLibC();
 
-                    exe.addObjectFile(
-                        b.path("libs/windows/libz-v1.3.1.lib")
-                    );
-                    exe.addObjectFile(
-                        b.path("libs/windows/libspng-v0.7.4.lib")
-                    );
+            switch (target.query.cpu_arch orelse builtin.cpu.arch) {
+                .x86_64 => {
+                    pkg.addObjectFile(b.path("libs/windows/libz.a"));
+                    pkg.addObjectFile(b.path("libs/windows/libspng.a"));
+
+                    exe.addObjectFile(b.path("libs/windows/libz.a"));
+                    exe.addObjectFile(b.path("libs/windows/libspng.a"));
                 },
                 else => @panic("Unsupported architecture!")
             }
         },
         .macos => {
-            switch (builtin.cpu.arch) {
+            switch (target.query.cpu_arch orelse builtin.cpu.arch) {
                 .aarch64 => {
-                    pkg.addObjectFile(b.path("libs/macOS/libz-v1.3.1.a"));
-                    pkg.addObjectFile(b.path("libs/macOS/libspng-v0.7.4.a"));
+                    pkg.addObjectFile(b.path("libs/macOS/libz.a"));
+                    pkg.addObjectFile(b.path("libs/macOS/libspng.a"));
 
-                    exe.addObjectFile(b.path("libs/macOS/libz-v1.3.1.a"));
-                    exe.addObjectFile(b.path("libs/macOS/libspng-v0.7.4.a"));
+                    exe.addObjectFile(b.path("libs/macOS/libz.a"));
+                    exe.addObjectFile(b.path("libs/macOS/libspng.a"));
                 },
                 else => @panic("Unsupported architecture!")
             }
@@ -69,4 +62,7 @@ pub fn build(b: *std.Build) void {
 
     const run_step = b.step("run", "Run the app");
     run_step.dependOn(&b.addRunArtifact(exe).step);
+
+    // For cross platform build
+
 }
