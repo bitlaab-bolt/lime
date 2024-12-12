@@ -62,7 +62,4 @@ pub fn build(b: *std.Build) void {
 
     const run_step = b.step("run", "Run the app");
     run_step.dependOn(&b.addRunArtifact(exe).step);
-
-    // For cross platform build
-
 }

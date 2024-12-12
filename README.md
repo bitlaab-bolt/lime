@@ -6,7 +6,7 @@ Lime is intended to be a high-level abstraction for image manipulation in variou
 
 ## Platform Support
 
-As of now, Lime supports **Windows and MacOS** (Apple silicon). Please create an issue if you need other platform support for your use case.
+As of now, Lime supports 64-bit **Windows and MacOS** (Apple silicon). Please create an issue if you need other platform support for your use case.
 
 ## Dependency
 

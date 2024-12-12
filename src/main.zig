@@ -25,6 +25,16 @@ pub fn main() !void {
     }
 
     // Loads IHDR info
-    const ihdr = try png.loadImageHeader("./tests/bitlaab.png");
-    debug.print("Result: {any}\n", .{ihdr.ihdr});
+    const image2 = try png.loadImageHeader("./tests/bitlaab.png");
+    switch(image2) {
+        .err => |v| {
+            std.debug.print("Error: {s}\n", .{v});
+            return error.FailedToLoad;
+        },
+        .ihdr => |v| {
+            // `v` Contains IHDR data
+            std.debug.print("Info: {any}\n", .{v});
+        },
+        .data => unreachable
+    }
 }

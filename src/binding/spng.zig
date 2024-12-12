@@ -66,7 +66,7 @@ pub fn strError(code: i32) []const u8 {
 }
 
 /// - See https://man7.org/linux/man-pages/man3/fopen.3.html
-const Mode = enum { r, @"r+", w, @"w+", a, @"a+" };
+const Mode = enum { r, rb, @"r+", w, @"w+", a, @"a+" };
 
 /// # Issues `fopen()` Syscall
 /// - `spng_set_png_file()` expects `[*c]FILE` structure

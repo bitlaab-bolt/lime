@@ -19,7 +19,7 @@ pub fn loadImage(heap: Allocator, file_path: []const u8) !Output {
     const ctx = spng.ctxNew(.default);
     defer spng.ctxFree(ctx);
 
-    const file = spng.open(file_path, .r);
+    const file = spng.open(file_path, .rb);
     if (file == null) return Error.FileNotFound;
     defer debug.assert(spng.close(file) == 0);
 
@@ -48,7 +48,7 @@ pub fn loadImageHeader(file_path: []const u8) !Output {
     const ctx = spng.ctxNew(.default);
     defer spng.ctxFree(ctx);
 
-    const file = spng.open(file_path, .r);
+    const file = spng.open(file_path, .rb);
     if (file == null) return Error.FileNotFound;
     defer debug.assert(spng.close(file) == 0);
 
