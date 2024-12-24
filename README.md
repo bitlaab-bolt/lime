@@ -14,4 +14,4 @@ All of Lime's dependencies are linked as static libraries. No additional steps a
 
 ## Documentation
 
-For most up-to-date documentation see - [**Lime Documentation**](https://bitlaabbolt.web.app/).
+For most up-to-date documentation see - [**Lime Documentation**](https://bitlaablime.web.app/).
